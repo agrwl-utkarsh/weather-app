@@ -6,6 +6,12 @@ import { WeatherResponse, ForecastResponse } from '@/types/weather';
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
+interface UseWeatherOptions {
+  initialWeather?: WeatherResponse | null;
+  initialForecast?: ForecastResponse | null;
+  initialUnit?: 'metric' | 'imperial';
+}
+
 interface UseWeatherReturn {
   currentWeather: WeatherResponse | null;
   forecast: ForecastResponse | null;
@@ -17,17 +23,14 @@ interface UseWeatherReturn {
   toggleUnit: () => void;
 }
 
-export function useWeather(): UseWeatherReturn {
-  const [currentWeather, setCurrentWeather] = useState<WeatherResponse | null>(null);
-  const [forecast, setForecast] = useState<ForecastResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [unit, setUnit] = useState<'metric' | 'imperial'>('metric');
-  const [mounted, setMounted] = useState(false);
+export function useWeather(options: UseWeatherOptions = {}): UseWeatherReturn {
+  const { initialWeather = null, initialForecast = null, initialUnit = 'metric' } = options;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [currentWeather, setCurrentWeather] = useState<WeatherResponse | null>(initialWeather);
+  const [forecast, setForecast] = useState<ForecastResponse | null>(initialForecast);
+  const [loading, setLoading] = useState(!initialWeather);
+  const [error, setError] = useState<string | null>(null);
+  const [unit, setUnit] = useState<'metric' | 'imperial'>(initialUnit);
 
   const fetchWeatherData = useCallback(async (url: string) => {
     const response = await fetch(url);
@@ -101,26 +104,11 @@ export function useWeather(): UseWeatherReturn {
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
-        },
-        () => {
-          fetchWeather('Lucknow');
-        }
-      );
-    } else {
-      fetchWeather('Lucknow');
+    if (currentWeather) {
+      const city = currentWeather.name;
+      fetchWeather(city);
     }
-  }, [mounted, fetchWeather, fetchWeatherByCoords]);
-
-  useEffect(() => {
-    if (!mounted || !currentWeather) return;
-    const city = currentWeather.name;
-    fetchWeather(city);
-  }, [mounted, unit, currentWeather, fetchWeather]);
+  }, [unit, currentWeather, fetchWeather]);
 
   return {
     currentWeather,

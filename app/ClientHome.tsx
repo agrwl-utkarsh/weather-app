@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
+import { WeatherResponse, ForecastResponse } from '@/types/weather';
 import { SearchBar } from '@/components/SearchBar';
 import { CurrentWeather } from '@/components/CurrentWeather';
 import { WeatherDetails } from '@/components/WeatherDetails';
@@ -8,18 +9,25 @@ import { Forecast } from '@/components/Forecast';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { useWeather } from '@/hooks/useWeather';
+import { setLastCity } from '@/utils/cookies';
 
-export default function ClientHome() {
-  const { currentWeather, forecast, loading, error, fetchWeather, fetchWeatherByCoords, unit, toggleUnit } = useWeather();
+interface ClientHomeProps {
+  initialWeather: WeatherResponse | null;
+  initialForecast: ForecastResponse | null;
+  initialUnit: 'metric' | 'imperial';
+}
+
+export default function ClientHome({ initialWeather, initialForecast, initialUnit }: ClientHomeProps) {
+  const { currentWeather, forecast, loading, error, fetchWeather, fetchWeatherByCoords, unit, toggleUnit } = useWeather({
+    initialWeather,
+    initialForecast,
+    initialUnit,
+  });
   const [lastSearchedCity, setLastSearchedCity] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleSearch = useCallback((city: string) => {
     setLastSearchedCity(city);
+    setLastCity(city);
     fetchWeather(city);
   }, [fetchWeather]);
 
@@ -46,22 +54,9 @@ export default function ClientHome() {
     }
   }, [lastSearchedCity, fetchWeather, handleSearch]);
 
-  if (!mounted) {
-    return (
-      <main className="min-h-screen bg-background py-8 px-4" suppressHydrationWarning>
-        <div className="max-w-md mx-auto">
-          <div className="main-card p-8 text-center">
-            <LoadingSpinner size="lg" />
-            <p className="mt-6 text-text-muted">Loading...</p>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
   if (loading && !currentWeather) {
     return (
-      <main className="min-h-screen bg-background py-8 px-4">
+      <main className="min-h-screen bg-background py-8 px-4" suppressHydrationWarning>
         <div className="max-w-md mx-auto">
           <div className="main-card p-8 text-center">
             <LoadingSpinner size="lg" />
