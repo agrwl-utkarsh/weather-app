@@ -1,21 +1,31 @@
 'use client';
 
 import { WeatherResponse } from '@/types/weather';
-import { convertWindSpeed, convertVisibility } from '@/utils/formatWeather';
+import { convertWindSpeed } from '@/utils/formatWeather';
 
 interface WeatherDetailsProps {
   weather: WeatherResponse | null;
+  unit: 'metric' | 'imperial';
 }
 
-export function WeatherDetails({ weather }: WeatherDetailsProps) {
+export function WeatherDetails({ weather, unit }: WeatherDetailsProps) {
   if (!weather) return null;
 
   const { main, wind, visibility } = weather;
 
   const metrics = [
-    { label: 'FEELS LIKE', value: `${Math.round(main.feels_like)}°` },
-    { label: 'HUMIDITY', value: `${main.humidity}%` },
-    { label: 'WIND', value: `${convertWindSpeed(wind.speed)} km/h` },
+    { 
+      label: 'FEELS LIKE', 
+      value: `${Math.round(main.feels_like)}${unit === 'metric' ? '°C' : '°F'}` 
+    },
+    { 
+      label: 'HUMIDITY', 
+      value: `${main.humidity}%` 
+    },
+    { 
+      label: 'WIND', 
+      value: `${convertWindSpeed(wind.speed)} ${unit === 'metric' ? 'km/h' : 'mph'}` 
+    },
   ];
 
   return (

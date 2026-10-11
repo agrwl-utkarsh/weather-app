@@ -13,6 +13,8 @@ interface UseWeatherReturn {
   error: string | null;
   fetchWeather: (city: string) => Promise<void>;
   fetchWeatherByCoords: (lat: number, lon: number) => Promise<void>;
+  unit: 'metric' | 'imperial';
+  toggleUnit: () => void;
 }
 
 export function useWeather(): UseWeatherReturn {
@@ -20,6 +22,7 @@ export function useWeather(): UseWeatherReturn {
   const [forecast, setForecast] = useState<ForecastResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [unit, setUnit] = useState<'metric' | 'imperial'>('metric');
 
   const fetchWeatherData = useCallback(async (url: string) => {
     const response = await fetch(url);
@@ -35,8 +38,8 @@ export function useWeather(): UseWeatherReturn {
     setError(null);
 
     try {
-      const currentUrl = `${BASE_URL}/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
-      const forecastUrl = `${BASE_URL}/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
+      const currentUrl = `${BASE_URL}/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=${unit}`;
+      const forecastUrl = `${BASE_URL}/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=${unit}`;
 
       const [currentData, forecastData] = await Promise.all([
         fetchWeatherData(currentUrl),
@@ -52,15 +55,15 @@ export function useWeather(): UseWeatherReturn {
     } finally {
       setLoading(false);
     }
-  }, [fetchWeatherData]);
+  }, [fetchWeatherData, unit]);
 
   const fetchWeatherByCoords = useCallback(async (lat: number, lon: number) => {
     setLoading(true);
     setError(null);
 
     try {
-      const currentUrl = `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
-      const forecastUrl = `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+      const currentUrl = `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${unit}`;
+      const forecastUrl = `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${unit}`;
 
       const [currentData, forecastData] = await Promise.all([
         fetchWeatherData(currentUrl),
@@ -76,7 +79,19 @@ export function useWeather(): UseWeatherReturn {
     } finally {
       setLoading(false);
     }
-  }, [fetchWeatherData]);
+  }, [fetchWeatherData, unit]);
+
+  const toggleUnit = useCallback(() => {
+    setUnit(prev => prev === 'metric' ? 'imperial' : 'metric');
+  }, []);
+
+  // Re-fetch when unit changes
+  useEffect(() => {
+    if (currentWeather) {
+      const city = currentWeather.name;
+      fetchWeather(city);
+    }
+  }, [unit, currentWeather, fetchWeather]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -85,11 +100,11 @@ export function useWeather(): UseWeatherReturn {
           fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
         },
         () => {
-          fetchWeather('London');
+          fetchWeather('Lucknow');
         }
       );
     } else {
-      fetchWeather('London');
+      fetchWeather('Lucknow');
     }
   }, [fetchWeather, fetchWeatherByCoords]);
 
@@ -100,5 +115,7 @@ export function useWeather(): UseWeatherReturn {
     error,
     fetchWeather,
     fetchWeatherByCoords,
+    unit,
+    toggleUnit,
   };
 }

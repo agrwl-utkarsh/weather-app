@@ -10,7 +10,7 @@ import { ErrorMessage } from '@/components/ErrorMessage';
 import { useWeather } from '@/hooks/useWeather';
 
 export default function Home() {
-  const { currentWeather, forecast, loading, error, fetchWeather, fetchWeatherByCoords } = useWeather();
+  const { currentWeather, forecast, loading, error, fetchWeather, fetchWeatherByCoords, unit, toggleUnit } = useWeather();
   const [lastSearchedCity, setLastSearchedCity] = useState<string | null>(null);
 
   const handleSearch = useCallback((city: string) => {
@@ -57,15 +57,15 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background py-8 px-4 md:py-12 md:px-8">
       <div className="max-w-md mx-auto">
-        {/* Header with title and °C toggle */}
+        {/* Header with title and °C/°F toggle */}
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-text-primary">Weather</h1>
           <button
-            className="px-4 py-1.5 bg-text-primary text-white text-sm font-semibold rounded-full"
-            disabled
-            aria-label="Temperature unit: Celsius"
+            onClick={toggleUnit}
+            className="px-4 py-1.5 bg-text-primary text-white text-sm font-semibold rounded-full transition-colors hover:opacity-90"
+            aria-label={`Switch to ${unit === 'metric' ? 'Fahrenheit' : 'Celsius'}`}
           >
-            °C
+            {unit === 'metric' ? '°C' : '°F'}
           </button>
         </header>
 
@@ -79,9 +79,9 @@ export default function Home() {
 
           {!loading && currentWeather && (
             <>
-              <CurrentWeather weather={currentWeather} />
-              <WeatherDetails weather={currentWeather} />
-              <Forecast forecast={forecast} timezoneOffset={currentWeather.timezone} />
+              <CurrentWeather weather={currentWeather} unit={unit} />
+              <WeatherDetails weather={currentWeather} unit={unit} />
+              <Forecast forecast={forecast} timezoneOffset={currentWeather.timezone} unit={unit} />
             </>
           )}
 

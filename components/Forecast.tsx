@@ -7,9 +7,10 @@ import { ForecastCard } from './ForecastCard';
 interface ForecastProps {
   forecast: ForecastResponse | null;
   timezoneOffset: number;
+  unit: 'metric' | 'imperial';
 }
 
-export function Forecast({ forecast, timezoneOffset }: ForecastProps) {
+export function Forecast({ forecast, timezoneOffset, unit }: ForecastProps) {
   if (!forecast) return null;
 
   const forecastDays = processForecastData(forecast, timezoneOffset);
@@ -19,7 +20,7 @@ export function Forecast({ forecast, timezoneOffset }: ForecastProps) {
       <h3 className="forecast-section-title text-center mb-6">5-DAY FORECAST</h3>
       <div className="flex gap-3 overflow-x-auto pb-2 snap-x">
         {forecastDays.slice(0, 5).map((day, index) => (
-          <ForecastCard key={day.date} day={day} index={index} />
+          <ForecastCard key={day.date} day={day} index={index} unit={unit} />
         ))}
       </div>
     </section>

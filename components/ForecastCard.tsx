@@ -2,27 +2,17 @@
 
 import { ProcessedForecastDay } from '@/types/weather';
 import { capitalizeFirstLetter } from '@/utils/formatWeather';
-
-const weatherIconMap: Record<string, string> = {
-  '01d': '☀️', '01n': '🌙',
-  '02d': '🌤️', '02n': '☁️',
-  '03d': '☁️', '03n': '☁️',
-  '04d': '☁️', '04n': '☁️',
-  '09d': '🌧️', '09n': '🌧️',
-  '10d': '🌦️', '10n': '🌧️',
-  '11d': '⛈️', '11n': '⛈️',
-  '13d': '❄️', '13n': '❄️',
-  '50d': '🌫️', '50n': '🌫️',
-};
+import { WeatherIcon } from './WeatherIcon';
 
 interface ForecastCardProps {
   day: ProcessedForecastDay;
   index: number;
+  unit: 'metric' | 'imperial';
 }
 
-export function ForecastCard({ day, index }: ForecastCardProps) {
+export function ForecastCard({ day, index, unit }: ForecastCardProps) {
   const iconCode = day.icon;
-  const iconEmoji = weatherIconMap[iconCode] || '🌤️';
+  const tempSymbol = unit === 'metric' ? '°C' : '°F';
 
   return (
     <article
@@ -30,8 +20,8 @@ export function ForecastCard({ day, index }: ForecastCardProps) {
       style={{ animationDelay: `${(index + 1) * 50}ms` }}
     >
       <p className="forecast-day mb-2">{day.dayName}</p>
-      <span className="weather-icon-red text-3xl mb-2 block" aria-hidden="true">{iconEmoji}</span>
-      <p className="forecast-temp">{Math.round(day.tempMax)}°</p>
+      <WeatherIcon iconCode={iconCode} size={40} className="mx-auto mb-2" />
+      <p className="forecast-temp">{Math.round(day.tempMax)}<span className="text-base font-medium">{tempSymbol}</span></p>
     </article>
   );
 }
