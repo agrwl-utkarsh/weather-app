@@ -16,9 +16,9 @@ export function Forecast({ forecast, timezoneOffset, unit }: ForecastProps) {
   const forecastDays = processForecastData(forecast, timezoneOffset);
 
   return (
-    <section className="animate-fade-in" aria-label="5-day forecast">
-      <h3 className="forecast-section-title text-center mb-6">5-DAY FORECAST</h3>
-      <div className="flex gap-3 overflow-x-auto pb-2 snap-x">
+    <section className="animate-fade-in mt-2 mb-1" aria-label="5-day forecast">
+      <h3 className="forecast-section-title text-center mb-4">5-DAY FORECAST</h3>
+      <div className="flex gap-2.5 overflow-x-auto pb-1 snap-x">
         {forecastDays.slice(0, 5).map((day, index) => (
           <ForecastCard key={day.date} day={day} index={index} unit={unit} />
         ))}

@@ -17,13 +17,16 @@ export function CurrentWeather({ weather, unit }: CurrentWeatherProps) {
   const tempSymbol = unit === 'metric' ? '°C' : '°F';
 
   return (
-    <section className="text-center animate-fade-in" aria-label="Current weather">
-      <h2 className="city-name mb-1">{name}, {sys.country}</h2>
-      <p className="weather-desc mb-8">{capitalizeFirstLetter(condition.description)}</p>
+    <section className="text-center animate-fade-in pt-6 pb-2" aria-label="Current weather">
+      <h2 className="city-name mb-1.5">{name}, {sys.country}</h2>
+      <p className="weather-desc mb-7">{capitalizeFirstLetter(condition.description)}</p>
       
-      <div className="flex items-center justify-center gap-4 mb-8">
-        <WeatherIcon iconCode={condition.icon} size={80} />
-        <div className="temp-large">{Math.round(main.temp)}<span className="text-3xl font-semibold">{tempSymbol}</span></div>
+      <div className="flex items-center justify-center gap-5 my-2">
+        <WeatherIcon iconCode={condition.icon} size={76} />
+        <div className="temp-large">
+          {Math.round(main.temp)}
+          <span className="text-3xl font-semibold ml-1">{tempSymbol}</span>
+        </div>
       </div>
     </section>
   );
