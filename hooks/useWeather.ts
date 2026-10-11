@@ -39,6 +39,11 @@ export function useWeather(): UseWeatherReturn {
   }, []);
 
   const fetchWeather = useCallback(async (city: string) => {
+    if (!API_KEY) {
+      setError('Weather API key not configured. Please add NEXT_PUBLIC_WEATHER_API_KEY.');
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -63,6 +68,11 @@ export function useWeather(): UseWeatherReturn {
   }, [fetchWeatherData, unit]);
 
   const fetchWeatherByCoords = useCallback(async (lat: number, lon: number) => {
+    if (!API_KEY) {
+      setError('Weather API key not configured. Please add NEXT_PUBLIC_WEATHER_API_KEY.');
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
 
