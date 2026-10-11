@@ -16,13 +16,9 @@ export function Forecast({ forecast, timezoneOffset }: ForecastProps) {
 
   return (
     <section className="animate-fade-in" aria-label="5-day forecast">
-      <h3 className="text-xl font-semibold text-text-primary mb-6">5-Day Forecast</h3>
-      <div
-        className="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-hide"
-        role="list"
-        aria-label="Forecast days"
-      >
-        {forecastDays.map((day, index) => (
+      <h3 className="forecast-section-title text-center mb-6">5-DAY FORECAST</h3>
+      <div className="flex gap-3 overflow-x-auto pb-2 snap-x">
+        {forecastDays.slice(0, 5).map((day, index) => (
           <ForecastCard key={day.date} day={day} index={index} />
         ))}
       </div>

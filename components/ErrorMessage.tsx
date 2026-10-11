@@ -7,7 +7,7 @@ interface ErrorMessageProps {
 
 export function ErrorMessage({ message, onRetry }: ErrorMessageProps) {
   return (
-    <div className="glass-card p-6 text-center animate-fade-in" role="alert">
+    <div className="main-card p-6 text-center animate-fade-in mb-6" role="alert">
       <svg
         className="w-12 h-12 mx-auto mb-4 text-red-400"
         fill="none"

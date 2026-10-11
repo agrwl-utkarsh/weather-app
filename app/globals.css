@@ -18,8 +18,8 @@ html {
 
 body {
   font-family: var(--font-inter);
-  background-color: #0f0f0f;
-  color: #ffffff;
+  background-color: #f4f4f6;
+  color: #1a1a1a;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,87 +31,149 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f0f0f;
+  background: #f4f4f6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6c63ff;
+  background: #e0e0e0;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5a52d4;
+  background: #d0d0d0;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.main-card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.search-input {
+  background: #f4f4f6;
+  border: none;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  color: #1a1a1a;
+  transition: all 0.2s ease;
 }
 
-.glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: scale(1.02);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-}
-
-.glass-input {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  color: #ffffff;
-  transition: all 0.3s ease;
-}
-
-.glass-input:focus {
+.search-input:focus {
   outline: none;
-  border-color: #6c63ff;
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+  background: #ebebef;
+  box-shadow: 0 0 0 3px rgba(255, 82, 82, 0.15);
 }
 
-.glass-input::placeholder {
+.search-input::placeholder {
+  color: #999999;
+}
+
+.location-btn {
+  background: #f4f4f6;
+  border: none;
+  border-radius: 16px;
   color: #666666;
+  transition: all 0.2s ease;
+}
+
+.location-btn:hover {
+  background: #ebebef;
+  color: #ff5252;
+}
+
+.location-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 82, 82, 0.15);
+}
+
+.forecast-card {
+  background: #f4f4f6;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.forecast-card:hover {
+  background: #ebebef;
+  transform: translateY(-2px);
+}
+
+.divider {
+  border-top: 1px solid #e8e8ec;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888888;
+}
+
+.metric-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.forecast-day {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.forecast-temp {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.forecast-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999999;
+}
+
+.city-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.weather-desc {
+  font-size: 15px;
+  color: #888888;
+}
+
+.temp-large {
+  font-size: 64px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+.weather-icon-red {
+  color: #ff5252;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
+  0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
-}
-
-.animate-pulse-slow {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
 
 .skeleton {
-  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 8px;

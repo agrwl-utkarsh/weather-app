@@ -12,11 +12,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Weather App',
   description: 'A minimal, elegant weather application',
-  themeColor: '#0f0f0f',
+  themeColor: '#f4f4f6',
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0f',
+  themeColor: '#f4f4f6',
 };
 
 export default function RootLayout({
