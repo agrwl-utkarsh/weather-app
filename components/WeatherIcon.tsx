@@ -19,7 +19,7 @@ const p = (lines: string[]): number[][] => {
   );
 };
 
-// 1. Crescent Moon (Exact current moon preserved)
+// 1. Crescent Moon (Clean curve of round red dots)
 const moon16 = p([
   '......1111......',
   '....1111111.....',
@@ -99,11 +99,6 @@ const rainingCloud16 = p([
   '................',
 ]);
 
-// Map all weather conditions strictly to the requested 4 icons:
-// - Moon for clear night
-// - Sun with circle and perpendicular rays for clear day
-// - Raining cloud for all rain/drizzle/thunderstorm/snow
-// - Simple cloud for all clouds/overcast/mist/atmosphere
 function getPattern(iconCode: string): number[][] {
   // Clear night -> Moon
   if (iconCode === '01n') {
@@ -122,15 +117,15 @@ function getPattern(iconCode: string): number[][] {
   ) {
     return rainingCloud16;
   }
-  // All other conditions (02d, 02n, 03d, 03n, 04d, 04n, 50d, 50n) -> Simple cloud
+  // All other conditions -> Simple cloud
   return cloud16;
 }
 
 export function WeatherIcon({ iconCode, size = 64, className = '' }: WeatherIconProps) {
   const pattern = getPattern(iconCode);
   const dotStep = size / GRID_SIZE;
-  const dotSize = dotStep * 0.76;
-  const dotRadius = dotSize * 0.35;
+  // Bigger, bold dots (90% of grid cell step)
+  const dotRadius = (dotStep * 0.90) / 2;
 
   return (
     <svg
@@ -144,14 +139,12 @@ export function WeatherIcon({ iconCode, size = 64, className = '' }: WeatherIcon
       {pattern.map((row, y) =>
         row.map((dot, x) =>
           dot ? (
-            <rect
+            <circle
               key={`${x}-${y}`}
-              x={x * dotStep + (dotStep - dotSize) / 2}
-              y={y * dotStep + (dotStep - dotSize) / 2}
-              width={dotSize}
-              height={dotSize}
+              cx={x * dotStep + dotStep / 2}
+              cy={y * dotStep + dotStep / 2}
+              r={dotRadius}
               fill="#ff5252"
-              rx={dotRadius}
             />
           ) : null
         )
