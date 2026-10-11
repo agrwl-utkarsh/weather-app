@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { SearchBar } from '@/components/SearchBar';
 import { CurrentWeather } from '@/components/CurrentWeather';
 import { WeatherDetails } from '@/components/WeatherDetails';
@@ -12,6 +12,11 @@ import { useWeather } from '@/hooks/useWeather';
 export default function Home() {
   const { currentWeather, forecast, loading, error, fetchWeather, fetchWeatherByCoords, unit, toggleUnit } = useWeather();
   const [lastSearchedCity, setLastSearchedCity] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSearch = useCallback((city: string) => {
     setLastSearchedCity(city);
@@ -41,6 +46,19 @@ export default function Home() {
     }
   }, [lastSearchedCity, fetchWeather, handleSearch]);
 
+  if (!mounted) {
+    return (
+      <main className="min-h-screen bg-background py-8 px-4" suppressHydrationWarning>
+        <div className="max-w-md mx-auto">
+          <div className="main-card p-8 text-center">
+            <LoadingSpinner size="lg" />
+            <p className="mt-6 text-text-muted">Loading...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   if (loading && !currentWeather) {
     return (
       <main className="min-h-screen bg-background py-8 px-4">
@@ -55,7 +73,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-background py-8 px-4 md:py-12 md:px-8">
+    <main className="min-h-screen bg-background py-8 px-4 md:py-12 md:px-8" suppressHydrationWarning>
       <div className="max-w-md mx-auto">
         {/* Header with title and °C/°F toggle */}
         <header className="flex items-center justify-between mb-6">

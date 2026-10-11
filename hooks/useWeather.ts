@@ -20,9 +20,14 @@ interface UseWeatherReturn {
 export function useWeather(): UseWeatherReturn {
   const [currentWeather, setCurrentWeather] = useState<WeatherResponse | null>(null);
   const [forecast, setForecast] = useState<ForecastResponse | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [unit, setUnit] = useState<'metric' | 'imperial'>('metric');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const fetchWeatherData = useCallback(async (url: string) => {
     const response = await fetch(url);
@@ -85,15 +90,8 @@ export function useWeather(): UseWeatherReturn {
     setUnit(prev => prev === 'metric' ? 'imperial' : 'metric');
   }, []);
 
-  // Re-fetch when unit changes
   useEffect(() => {
-    if (currentWeather) {
-      const city = currentWeather.name;
-      fetchWeather(city);
-    }
-  }, [unit, currentWeather, fetchWeather]);
-
-  useEffect(() => {
+    if (!mounted) return;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -106,7 +104,13 @@ export function useWeather(): UseWeatherReturn {
     } else {
       fetchWeather('Lucknow');
     }
-  }, [fetchWeather, fetchWeatherByCoords]);
+  }, [mounted, fetchWeather, fetchWeatherByCoords]);
+
+  useEffect(() => {
+    if (!mounted || !currentWeather) return;
+    const city = currentWeather.name;
+    fetchWeather(city);
+  }, [mounted, unit, currentWeather, fetchWeather]);
 
   return {
     currentWeather,
