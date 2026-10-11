@@ -12,7 +12,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Weather App',
   description: 'A minimal, elegant weather application',
-  themeColor: '#f4f4f6',
 };
 
 export const viewport: Viewport = {

@@ -88,7 +88,7 @@ export default function ClientHome({ initialWeather, initialForecast, initialUni
             <ErrorMessage message={error} onRetry={handleRetry} />
           )}
 
-          {!loading && currentWeather && (
+          {currentWeather && (
             <>
               <CurrentWeather weather={currentWeather} unit={unit} />
               <WeatherDetails weather={currentWeather} unit={unit} />
