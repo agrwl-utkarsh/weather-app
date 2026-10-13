@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { WeatherResponse, ForecastResponse } from '@/types/weather';
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
@@ -103,12 +103,32 @@ export function useWeather(options: UseWeatherOptions = {}): UseWeatherReturn {
     setUnit(prev => prev === 'metric' ? 'imperial' : 'metric');
   }, []);
 
+  const currentCityRef = useRef<string>(initialWeather?.name || 'Lucknow');
+  const prevUnitRef = useRef(unit);
+
   useEffect(() => {
-    if (currentWeather) {
-      const city = currentWeather.name;
-      fetchWeather(city);
+    if (currentWeather?.name) {
+      currentCityRef.current = currentWeather.name;
     }
-  }, [unit, currentWeather, fetchWeather]);
+  }, [currentWeather]);
+
+  // When unit is toggled, refetch with the current city
+  useEffect(() => {
+    if (prevUnitRef.current !== unit) {
+      prevUnitRef.current = unit;
+      if (currentCityRef.current) {
+        fetchWeather(currentCityRef.current);
+      }
+    }
+  }, [unit, fetchWeather]);
+
+  // If no initial weather was provided (e.g. server-side key missing or error), fetch on client mount
+  useEffect(() => {
+    if (!initialWeather) {
+      fetchWeather(currentCityRef.current);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     currentWeather,

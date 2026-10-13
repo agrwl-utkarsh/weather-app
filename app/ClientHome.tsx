@@ -8,6 +8,7 @@ import { WeatherDetails } from '@/components/WeatherDetails';
 import { Forecast } from '@/components/Forecast';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorMessage } from '@/components/ErrorMessage';
+import { UnitSlider } from '@/components/UnitSlider';
 import { useWeather } from '@/hooks/useWeather';
 import { setLastCity } from '@/utils/cookies';
 
@@ -18,7 +19,7 @@ interface ClientHomeProps {
 }
 
 export default function ClientHome({ initialWeather, initialForecast, initialUnit }: ClientHomeProps) {
-  const { currentWeather, forecast, loading, error, fetchWeather, fetchWeatherByCoords, unit, toggleUnit } = useWeather({
+  const { currentWeather, forecast, loading, error, fetchWeather, unit, toggleUnit } = useWeather({
     initialWeather,
     initialForecast,
     initialUnit,
@@ -31,21 +32,6 @@ export default function ClientHome({ initialWeather, initialForecast, initialUni
     fetchWeather(city);
   }, [fetchWeather]);
 
-  const handleLocation = useCallback(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
-        },
-        () => {
-          handleSearch('Lucknow');
-        }
-      );
-    } else {
-      handleSearch('Lucknow');
-    }
-  }, [fetchWeatherByCoords, handleSearch]);
-
   const handleRetry = useCallback(() => {
     if (lastSearchedCity) {
       fetchWeather(lastSearchedCity);
@@ -56,11 +42,11 @@ export default function ClientHome({ initialWeather, initialForecast, initialUni
 
   if (loading && !currentWeather) {
     return (
-      <main className="min-h-screen bg-background py-8 px-4" suppressHydrationWarning>
-        <div className="max-w-md mx-auto">
-          <div className="main-card p-8 text-center">
+      <main className="min-h-screen bg-background py-8 px-4 flex items-center justify-center" suppressHydrationWarning>
+        <div className="w-full max-w-md mx-auto">
+          <div className="main-card p-10 text-center">
             <LoadingSpinner size="lg" />
-            <p className="mt-6 text-text-muted">Loading weather data...</p>
+            <p className="mt-6 text-text-muted font-medium text-sm">Loading weather data...</p>
           </div>
         </div>
       </main>
@@ -68,37 +54,35 @@ export default function ClientHome({ initialWeather, initialForecast, initialUni
   }
 
   return (
-    <main className="min-h-screen bg-background py-8 px-4 md:py-12 md:px-8" suppressHydrationWarning>
-      <div className="max-w-md mx-auto">
-        <header className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-text-primary">Weather</h1>
-          <button
-            onClick={toggleUnit}
-            className="px-4 py-1.5 bg-text-primary text-white text-sm font-semibold rounded-full transition-colors hover:opacity-90"
-            aria-label={`Switch to ${unit === 'metric' ? 'Fahrenheit' : 'Celsius'}`}
-          >
-            {unit === 'metric' ? '°C' : '°F'}
-          </button>
+    <main className="min-h-screen bg-background py-8 px-4 sm:py-12 sm:px-6" suppressHydrationWarning>
+      <div className="max-w-[440px] mx-auto">
+        {/* Top Header with Brand and Modern Slider Toggle */}
+        <header className="flex items-center justify-between mb-6 px-1">
+          <h1 className="text-2xl font-bold tracking-tight text-text-primary">Weather</h1>
+          <UnitSlider unit={unit} onToggle={toggleUnit} />
         </header>
 
-        <article className="main-card p-6 md:p-8">
-          <SearchBar onSearch={handleSearch} onLocation={handleLocation} disabled={loading} />
+        {/* Main aesthetic card */}
+        <article className="main-card p-6 sm:p-7">
+          <SearchBar onSearch={handleSearch} disabled={loading} />
 
           {error && (
-            <ErrorMessage message={error} onRetry={handleRetry} />
+            <div className="mt-5">
+              <ErrorMessage message={error} onRetry={handleRetry} />
+            </div>
           )}
 
-          {!loading && currentWeather && (
-            <>
+          {currentWeather && (
+            <div className="mt-2">
               <CurrentWeather weather={currentWeather} unit={unit} />
               <WeatherDetails weather={currentWeather} unit={unit} />
               <Forecast forecast={forecast} timezoneOffset={currentWeather.timezone} unit={unit} />
-            </>
+            </div>
           )}
 
           {!loading && !currentWeather && !error && (
-            <div className="text-center py-12">
-              <p className="text-text-muted">Enter a city to get started</p>
+            <div className="text-center py-14">
+              <p className="text-text-muted text-sm font-medium">Enter a city to get started</p>
             </div>
           )}
         </article>
