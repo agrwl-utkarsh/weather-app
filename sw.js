@@ -1,11 +1,12 @@
-const CACHE = 'weather-pwa-v1';
+const CACHE = 'weather-pwa-v2';
 const ASSETS = [
-  '.',
+  '/',
   '/index.html',
   '/manifest.json',
   '/icon-192.svg',
   '/icon-512.svg',
-  '/sw.js'
+  '/sw.js',
+  '/assets/icon.svg',
 ];
 
 self.addEventListener('install', event => {

@@ -1,5 +1,8 @@
 import { ForecastResponse, ProcessedForecastDay } from '@/types/weather';
 
+// OpenWeatherMap timezone is in seconds from UTC
+const DAYS_TO_RETURN = 5;
+
 export function processForecastData(forecast: ForecastResponse, timezoneOffset: number): ProcessedForecastDay[] {
   // Map of dateKey -> list of 3-hour forecast slots
   const daysSlots = new Map<string, Array<{
@@ -12,7 +15,7 @@ export function processForecastData(forecast: ForecastResponse, timezoneOffset: 
   }>>();
 
   forecast.list.forEach(item => {
-    // Convert to local time at the target city using timezoneOffset
+    // Convert to local time at the target city using timezoneOffset (seconds from UTC)
     const localDate = new Date((item.dt + timezoneOffset) * 1000);
     const dateKey = localDate.toISOString().split('T')[0];
     const hour = localDate.getUTCHours();
@@ -72,14 +75,11 @@ export function processForecastData(forecast: ForecastResponse, timezoneOffset: 
     });
   });
 
-  return processedDays.slice(0, 5);
-}
-
-export function getWeatherIconUrl(iconCode: string, size: '2x' | '4x' = '2x'): string {
-  return `https://openweathermap.org/img/wn/${iconCode}@${size}.png`;
+  return processedDays.slice(0, DAYS_TO_RETURN);
 }
 
 export function capitalizeFirstLetter(str: string): string {
+  if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
