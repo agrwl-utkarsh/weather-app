@@ -2,202 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Red Dot Matrix Weather Theme */
 :root {
-  --font-inter: system-ui, sans-serif;
+  /* Colors */
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --muted: #666666;
+  --accent: #ff0000;
+  --accent-dim: #cc0000;
+  --card: #111111;
+  --border: #333333;
+  /* Utility classes */
+  --radius: 0px;
 }
 
-/* White and Red-Black Theme Variables */
-:root {
-  --color-background: #ffffff;
-  --color-card: #ffffff;
-  --color-card-border: #e0e0e0;
-  --color-accent: #ff0000;
-  --color-accent-hover: #cc0000;
-  --color-text-primary: #000000;
-  --color-text-secondary: #333333;
-  --color-text-muted: #666666;
-  --color-input-bg: #fafafa;
-  --color-input-border: #e0e0e0;
-  --color-forecast-bg: #fafafa;
+/* Dot Matrix Background Pattern */
+.bg-dot-matrix {
+  background-image: 
+    radial-gradient(circle at 20px 20px, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 40px 40px, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 60px 20px, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 20px 60px, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 40px 60px, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-inter);
-  background-color: var(--color-background);
-  color: var(--color-text-primary);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Scrollbar Styles */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-card-border);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-accent);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-hover);
-}
-
-/* Utility Classes for the New Theme */
-.main-card {
-  background: var(--color-card);
-  border-radius: 0px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.search-input {
-  background: var(--color-input-bg);
-  border: none;
-  border-radius: 4px;
-  color: var(--color-text-primary);
-  transition: all 0.2s ease;
-}
-
-.search-input:focus {
-  outline: none;
-  background: var(--color-bg);
-  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.15);
-}
-
-.search-input::placeholder {
-  color: var(--color-text-muted);
-}
-
-.location-btn {
-  background: var(--color-input-bg);
-  border: none;
-  border-radius: 4px;
-  color: var(--color-text-secondary);
-  transition: all 0.2s ease;
-}
-
-.location-btn:hover {
-  background: var(--color-input-bg);
-  color: var(--color-accent);
-}
-
-.location-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.15);
-}
-
-.forecast-card {
-  background: var(--color-forecast-bg);
-  border-radius: 0px;
-  transition: all 0.2s ease;
-}
-
-.forecast-card:hover {
-  background: var(--color-card);
-  transform: translateY(-2px);
-}
-
-.divider {
-  border-top: 1px solid var(--color-card-border);
-}
-
-.metric-label {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
+.text-dot-matrix {
+  font-family: 'Courier New', monospace;
   letter-spacing: 0.5px;
-  color: var(--color-text-muted);
 }
 
-.metric-value {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text-primary);
+/* Scanlines */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
 }
 
-.forecast-day {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-text-primary);
+/* Neon glow */
+.neon-glow {
+  text-shadow: 
+    0 0 5px var(--accent),
+    0 0 10px var(--accent),
+    0 0 15px var(--accent);
 }
 
-.forecast-temp {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text-primary);
+/* Card style */
+.card-dotmatrix {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
 }
 
-.forecast-section-title {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--color-text-muted);
+/* Marquee style */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.city-name {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--color-text-primary);
+/* Marquee content animation */
+.marquee-inner {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
 }
 
-.weather-desc {
-  font-size: 15px;
-  color: var(--color-text-muted);
-}
-
-.temp-large {
-  font-size: 64px;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  line-height: 1;
-}
-
-.weather-icon-red {
-  color: var(--color-accent);
-}
-
-/* Animation Classes */
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.stagger-1 { animation-delay: 0.05s; }
-.stagger-2 { animation-delay: 0.1s; }
-.stagger-3 { animation-delay: 0.15s; }
-.stagger-4 { animation-delay: 0.2s; }
-.stagger-5 { animation-delay: 0.25s; }
-
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 0px;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

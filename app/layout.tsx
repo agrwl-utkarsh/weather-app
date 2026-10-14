@@ -2,12 +2,12 @@ import type { Metadata, Viewport } from 'next';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
-  title: 'Weather App',
-  description: 'A minimal, elegant weather application',
+  title: 'Weather™ - Redefine Your Weather',
+  description: 'Highly customizable weather experience with dot matrix aesthetic',
 };
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  themeColor: '#ff0000',
 };
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className="min-h-screen bg-white text-black antialiased">
+      <body className="min-h-screen bg-background fg-foreground min-w-screen">
         {children}
       </body>
     </html>

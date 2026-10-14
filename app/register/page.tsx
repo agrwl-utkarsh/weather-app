@@ -1,6 +1,6 @@
 /*!
  * Register Page
- * White and Red-Black Theme
+ * Dot Matrix Red Aesthetic
  * Email Registration Form
  */
 
@@ -11,7 +11,7 @@ export const revalidate = 0
 
 export default function RegisterPage() {
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen bg-gray-900 text-white">
       <nav className="border-b border-red-500/10 px-4 py-3 fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-red-500 hover:text-red-700 transition-colors">
@@ -30,11 +30,11 @@ export default function RegisterPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-red-500 via-red-600 to-black opacity-10"></div>
 
         <div className="max-w-md mx-auto text-center relative z-10">
-          <h1 className="text-3xl md:text-4xl font-black leading-tight mb-4">
+          <h1 className="text-3xl md:text-4xl font-black leading-tight mb-4 text-red-500">
             Register with Email
           </h1>
 
-          <p className="text-lg text-red-500 max-w-xl mb-12">
+          <p className="text-lg text-red-500 mb-12">
             Create your free account in under 30 seconds. Get immediate access to the
             weather app, including the Android APK download.
           </p>
@@ -62,22 +62,22 @@ export default function RegisterPage() {
                   type="password"
                   required
                   className="w-full px-4 py-3 border border-red-500/50 rounded-xl focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-colors"
-                  placeholder="Enter your password"
+                  placeholder="••••••••"
                   aria-label="Password"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-red-500 text-white font-medium py-3 rounded-xl text-lg hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                className="w-full bg-red-500 text-white font-medium py-3 rounded-xl hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20"
                 aria-label="Register account"
               >
                 Register Account
               </button>
 
               <p className="text-sm text-gray-500">
-                By registering, you agree to our <Link href="#" className="font-medium text-red-500 hover:text-black transition-colors">Terms of Service</Link>
-                and <Link href="#" className="font-medium text-red-500 hover:text-black transition-colors">Privacy Policy</Link>.
+                By registering, you agree to our <a href="#" className="font-medium text-red-500 hover:text-black transition-colors">Terms of Service</a>
+                and <a href="#" className="font-medium text-red-500 hover:text-black transition-colors">Privacy Policy</a>.
                 <br />
                 <br />
                 Already have an account? <Link href="/" className="font-medium text-red-500 hover:text-black transition-colors">Sign in</Link>
@@ -89,35 +89,33 @@ export default function RegisterPage() {
       </header>
 
       <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="grid max-w-6xl mx-auto grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+        <div className="grid max-w-7xl mx-auto grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-center mb-12 border-b border-red-500/20 pb-4">
+            <h2 className="text-3xl font-bold text-center mb-12 border-b border-red-500/20 pb-4 text-red-500 neon-glow">
               Why Register?
             </h2>
-
             <ul className="list-disc list-inside text-gray-500 space-y-3">
               <li>
-                <span className="font-medium">Immediate APK access:</span>
+                <span className="font-medium text-red-400">Immediate APK access:</span>
                 Download the Android APK after email verification
               </li>
               <li>
-                <span className="font-medium">Personalized experience:</span>
+                <span className="font-medium text-red-400">Personalized experience:</span>
                 Save your favorite weather locations and settings
               </li>
               <li>
-                <span className="font-medium">Offline caching:</span>
+                <span className="font-medium text-red-400">Offline caching:</span>
                 Your forecast data is saved for offline viewing
               </li>
               <li>
-                <span className="font-medium">Cross-device sync:</span>
+                <span className="font-medium text-red-400">Cross-device sync:</span>
                 Your customizations sync across web and mobile
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-red-500 mb-4">Security</h2>
-
+            <h2 className="text-2xl font-bold text-red-500 mb-4 text-red-500 neon-glow">Security</h2>
             <ul className="list-disc list-inside text-gray-500 space-y-2">
               <li>
                 <strong>Email verification required:</strong>
@@ -139,19 +137,16 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-red-500 mb-4">Beta Access</h2>
-
+            <h2 className="text-2xl font-bold text-red-500 mb-4 neon-glow">Beta Access</h2>
             <p className="text-gray-500 mb-4">
               Registered users get early access to new features including:
             </p>
-
             <ul className="list-disc list-inside text-gray-500 space-y-2">
               <li>PC widget (next phase)</li>
               <li>Enhanced customization options</li>
               <li>New weather data sources</li>
               <li>Community feedback influence</li>
             </ul>
-
             <p className="text-sm text-gray-500 mt-4">
               Limited beta spots available. Register now to secure your place!
             </p>

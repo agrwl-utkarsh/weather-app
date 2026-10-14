@@ -1,7 +1,5 @@
 /*!
- * Weather App Landing Page
- * White and Red-Black Theme
- * Highly Customizable Weather Experience
+ * Weather™ Landing Page
  */
 
 import Image from 'next/image'
@@ -10,64 +8,34 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-// Sample feature data - in production, these would be real features
 const features = [
-  {
-    id: '1',
-    title: 'See Your Weather, Your Way',
-    description: 'Highly customizable interface - choose what you see, how you see it, and when you see it.',
-  },
-  {
-    id: '2',
-    title: 'Real-Time Accuracy',
-    description: 'OpenWeatherMap integration with precise local time forecasts and timezone-aware data.',
-  },
-  {
-    id: '3',
-    title: 'Cross-Platform',
-    description: 'Web, Android APK, and upcoming PC widget - one weather experience across all your devices.',
-  },
-  {
-    id: '4',
-    title: 'Offline Ready',
-    description: 'PWA service worker caches forecasts so you can check conditions even without internet.',
-  },
+  { id: 'f1', title: 'See Your Weather', subtitle: 'How You Choose To', desc: 'Fully customizable interface.' },
+  { id: 'f2', title: 'Real-Time Accuracy', subtitle: 'OpenWeatherMap', desc: 'Precise forecasts with timezone-aware data.' },
+  { id: 'f3', title: 'Cross-Platform', subtitle: 'Web & Mobile', desc: 'Web, Android APK, and PC widget.' },
+  { id: 'f4', title: 'Offline Mode', subtitle: 'PWA Cached', desc: 'Cached forecasts for offline viewing.' },
 ]
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen bg-gray-900 text-white">
       <nav className="border-b border-red-500/10 px-4 py-3 fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-red-500 hover:text-red-700 transition-colors">
             Weather™
           </Link>
           <div className="flex items-center gap-6">
-            <Link href="/features" className="text-sm text-gray-600 hover:text-black transition-colors">
-              Features
-            </Link>
-            <Link href="/download" className="text-sm text-gray-600 hover:text-black transition-colors">
-              Download
-            </Link>
-            <Link href="/docs" className="text-sm text-gray-600 hover:text-black transition-colors">
-              Docs
-            </Link>
+            <Link href="/features" className="text-sm text-gray-600 hover:text-black transition-colors">Features</Link>
+            <Link href="/download" className="text-sm text-gray-600 hover:text-black transition-colors">Download</Link>
+            <Link href="/docs" className="text-sm text-gray-600 hover:text-black transition-colors">Docs</Link>
+            <Link href="/register" className="text-red-500 hover:text-red-500 transition-colors">Register</Link>
           </div>
         </div>
       </nav>
 
-      <header className="relative py-20 overflow-hidden">
+      <header className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-red-500 via-red-600 to-black opacity-10"></div>
 
         <div className="max-w-7xl mx-auto text-center relative z-10">
-          <Image
-            src='/weather.svg'
-            alt='Weather App'
-            width={200}
-            height={200}
-            className="mx-auto mb-8 rounded-full border-4 border-white opacity-80 transition-transform hover:scale-105 transition-transform"
-          />
-
           <h1 className="text-5xl md:text-7xl font-black leading-tight mb-4">
             See Your Weather{' '}
             <span className="italic">How You Choose To</span>
@@ -99,7 +67,7 @@ export default function Home() {
               <div key={feature.id} className="p-6 border-rounded bg-white/50 backdrop-blur-sm hover:bg-white/80 transition-all duration-300">
                 <div className="text-red-500 text-4xl mb-3">{feature.id}</div>
                 <h3 className="text-xl font-medium mb-2">{feature.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{feature.description}</p>
+                <p className="text-gray-500 leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
