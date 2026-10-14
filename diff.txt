@@ -1,0 +1,15 @@
+﻿
+InputObject                                                                                                            
+-----------                                                                                                            
+            Highly customizable weather experience. Choose your theme, units, widgets, and layout ΓÇö all in one bea...
+              <div className="text-red-600 text-3xl mb-4">≡ƒÄ¢∩╕Å</div>                                                
+              <div className="text-red-600 text-3xl mb-4">ΓÜí</div>                                                    
+              <div className="text-red-600 text-3xl mb-4">≡ƒô▒</div>                                                   
+              Lightweight (<5MB) and offline-capable. No Play Store required ΓÇö install directly from our website.    
+            Highly customizable weather experience. Choose your theme, units, widgets, and layout â€” all in one bea...
+              <div className="text-red-600 text-3xl mb-4">ðŸŽ›ï¸</div>                                                
+              <div className="text-red-600 text-3xl mb-4">âš¡</div>                                                    
+              <div className="text-red-600 text-3xl mb-4">ðŸ“±</div>                                                   
+              Lightweight (<5MB) and offline-capable. No Play Store required â€” install directly from our website.    
+
+

@@ -2,8 +2,9 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './app/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx,mdx}',
+    './components/**/*.{ts,tsx,mdx}',
+    './src/**/*.{ts,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -11,26 +12,31 @@ const config: Config = {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
       colors: {
-        background: '#f4f4f6',
+        background: '#ffffff',
         card: '#ffffff',
-        'card-border': '#e8e8ec',
-        accent: '#ff5252',
-        'accent-hover': '#ff3333',
-        'text-primary': '#1a1a1a',
-        'text-secondary': '#666666',
-        'text-muted': '#888888',
-        'input-bg': '#f4f4f6',
-        'input-border': '#e8e8ec',
-        'forecast-bg': '#f4f4f6',
+        'card-border': '#e0e0e0',
+        accent: '#ff0000',
+        'accent-hover': '#cc0000',
+        'text-primary': '#000000',
+        'text-secondary': '#333333',
+        'text-muted': '#666666',
+        'input-bg': '#fafafa',
+        'input-border': '#e0e0e0',
+        'forecast-bg': '#fafafa',
       },
       borderRadius: {
-        'card': '24px',
-        'input': '16px',
-        'forecast': '12px',
+        'card': '0px',
+        'input': '4px',
+        'forecast': '0px',
       },
       boxShadow: {
-        'card': '0 2px 12px rgba(0, 0, 0, 0.06)',
+        'card': '0 2px 8px rgba(0, 0, 0, 0.1)',
       },
+    },
+    colors: {
+      primary: '#ff0000',
+      secondary: '#000000',
+      accent: '#ff0000',
     },
   },
   plugins: [],
