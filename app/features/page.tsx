@@ -1,6 +1,7 @@
 /*!
  * Features Page
  * White and Red-Black Theme
+ * Shows the highly customizable weather experience
  */
 
 import Link from 'next/link'
@@ -32,7 +33,7 @@ const featureCards = [
   {
     id: 'multi-platform',
     title: 'Cross-Platform',
-    description: 'Web app, Android APK (coming soon), and PC widget (next phase). One experience, all devices.',
+    description: 'Web app, Android APK, and PC widget - one experience, all devices.',
   },
 ]
 
@@ -70,8 +71,8 @@ export default function FeaturesPage() {
             <Link href="/download" className="bg-white text-red-500 font-medium px-8 py-3 rounded-full text-lg border border-red-500 hover:bg-red-50/10 transition-colors">
               Download APK
             </Link>
-            <Link href="/features" className="bg-red-500 text-white font-medium px-8 py-3 rounded-full text-lg hover:bg-red-600 transition-colors">
-              View Features
+            <Link href="/docs" className="bg-red-500 text-white font-medium px-8 py-3 rounded-full text-lg hover:bg-red-600 transition-colors">
+              View Docs
             </Link>
           </div>
         </div>
@@ -108,7 +109,7 @@ export default function FeaturesPage() {
                 </li>
                 <li>
                   <span className="font-medium">Cross-platform:</span>
-                  Web, Android, and future PC widget integration
+                  Web, Android, and PC widget integration
                 </li>
                 <li>
                   <span className="font-medium">Customizable:</span>
